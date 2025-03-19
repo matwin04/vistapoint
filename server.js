@@ -1,22 +1,23 @@
 import postgres from "postgres";
 import express from "express";
 import path from "path";
-import { engine } from "express-handlebars";
 import dotenv from "dotenv";
+import getPort from "get-port";
+import {engine} from "express-handlebars";
 dotenv.config();
+
 const sql = postgres(process.env.DATABASE_URL, { ssl: "require" });
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 
+// Serve static files from "public" without needing multiple routes
+app.use(express.static("public"));
 
 // Configure Handlebars
 app.engine("html", engine({ extname: ".html", defaultLayout: false }));
 app.set("view engine", "html");
-app.set("views", path.join(process.cwd(), "views"));
+app.set("views", "views");
 
-// Serve static files
-app.use("/public", express.static(path.join(process.cwd(), "public")));
-app.use(express.json());
 
 async function setupDB() {
     await sql`
@@ -63,8 +64,6 @@ app.post("/api/pois",async(req,res)=>{
 
     }
 });
-if (require.main === module) {
-    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-}
-  
+
+app.listen(PORT);
 export default app;
