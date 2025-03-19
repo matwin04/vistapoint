@@ -3,92 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-    <link href="/public/styles/style.css" rel="stylesheet">
-    <link href="/styles/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
-    <script defer src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script type="module" src="/scripts/map.js"></script>
+    <title>VistaPoint</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar is-light">
-        <div class="navbar-brand">
-            <a class="navbar-item has-text-weight-bold has-backgtound-warning" href="#">VistaPoint</a>
-        </div>
-        <div class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" href="#">List</a>
-                <a class="navbar-item" href="#">About</a>
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item has-text-weight-bold has-background-warning" href="#">VistaPoint</a>
             </div>
-        </div>
-        <div class="navbar-end">
-            <a class="navbar-item button is-primary">My Profile</a>
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="#">List</a>
+                    <a class="navbar-item" href="#">About</a>
+                </div>
+                <div class="navbar-end">
+                    <a class="navbar-item button is-primary">My Profile</a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!--MAIN LAYOUT-->
-    <div class="columns is-gapless is-multiline m-4">
-        <div class="column is-two-thirds">
-            <div id="map" class="box">MAP</div>
+    <!-- Main Layout -->
+    <div class="container mt-4">
+        <div class="columns">
+            <!-- Map Section -->
+            <div class="column is-two-thirds">
+                <div class="box">
+                    <div id="map"></div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="column is-one-third">
+                <div class="box">
+                    <h2 class="title is-5">Location Details</h2>
+                    <p>Click on a location to view details.</p>
+                </div>
+
+                <div class="box">
+                    <h2 class="title is-5">Add Form</h2>
+                    <form id="addPoiForm">
+                        <div class="field">
+                            <label class="label">Name</label>
+                            <div class="control">
+                                <input class="input" type="text" id="name" placeholder="Enter location name" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <div class="control">
+                                <textarea class="textarea" id="description" placeholder="Enter details"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Category</label>
+                            <div class="control">
+                                <input class="input" type="text" id="category" placeholder="Enter category">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Latitude</label>
+                            <div class="control is-flex">
+                                <input class="input" type="number" id="latitude" step="any" placeholder="Enter latitude" required>
+                                <button type="button" class="button is-info ml-2" id="findOnMap">Find on Map</button>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Longitude</label>
+                            <div class="control">
+                                <input class="input" type="number" id="longitude" step="any" placeholder="Enter longitude" required>
+                            </div>
+                        </div>
+
+                        <div class="control">
+                            <button class="button is-success" type="submit">Add Location</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!--SIDEBAR-->
-    <div class="column is-one-third">
-        <!--LOCATION DETAILS-->
-        <div id="location-details" class="box">
-            <h2 class="title is-5">Location Details</h2>
-            <p>Click on a location to view details</p>
-        </div>
-        <!-- Add Form -->
-        <div class="box">
-            <h2 class="title is-5">Add Form</h2>
-            <form id="addPoiForm">
-                <div class="field">
-                    <label class="label">Name</label>
-                    <div class="control">
-                        <input class="input" type="text" id="name" placeholder="Enter location name" required>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Description</label>
-                    <div class="control">
-                        <textarea class="textarea" id="description" placeholder="Enter details"></textarea>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Category</label>
-                    <div class="control">
-                        <input class="input" type="text" id="category" placeholder="Enter category">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Latitude</label>
-                    <div class="control">
-                        <input class="input" type="number" id="latitude" placeholder="Enter latitude" required>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Longitude</label>
-                    <div class="control">
-                        <input class="input" type="number" id="longitude" placeholder="Enter longitude" required>
-                    </div>
-                </div>
-
-                <!-- Find on Map Button -->
-                <div class="control">
-                    <button type="button" class="button is-info" id="findOnMap">Find on Map</button>
-                </div>
-
-                <div class="control">
-                    <button class="button is-success" type="submit">Add Location</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="/scripts/map.js"></script>
 </body>
 </html>

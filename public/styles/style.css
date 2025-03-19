@@ -4,8 +4,6 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 #map {
-    width: 80%;
-    height: 400px;
-    margin: 20px auto;
-    border: 1px solid #000000;
+    height: 500px;
+    width: 100%;
 }
