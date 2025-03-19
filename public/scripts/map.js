@@ -85,7 +85,4 @@ document.addEventListener("DOMContentLoaded",async()=>{
             console.error("ERR ADDING POI",error);
         }
     });
-    setTimeout(() => {
-        map.invalidateSize();
-    }, 500);
 });
