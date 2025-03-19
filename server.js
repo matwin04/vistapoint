@@ -4,12 +4,17 @@ import path from "path";
 import dotenv from "dotenv";
 import getPort from "get-port";
 import {engine} from "express-handlebars";
+import { fileURLToPath } from "url";
+
 dotenv.config();
 
 const sql = postgres(process.env.DATABASE_URL, { ssl: "require" });
 const app = express();
 const PORT = process.env.PORT;
 
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Fixes path issues
+app.set("views", path.join(__dirname, "views"));
 // Serve static files from "public" without needing multiple routes
 app.use(express.static("public"));
 
