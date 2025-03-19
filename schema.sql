@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS pois (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT,
-    lat DOUBLE PRECISION NOT NULL,
-    lng DOUBLE PRECISION NOT NULL,
-    category TEXT
-);

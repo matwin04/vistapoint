@@ -16,7 +16,18 @@ document.addEventListener("DOMContentLoaded",async()=>{
         });
     }
     loadPOIs();
-
+    let selectingLocation = false;
+    document.getElementById("findOnMap").addEventListener("click",()=>{
+        selectingLocation=true;
+        alert("Click On Map to select a location");
+    });
+    map.on("click",(event)=>{
+        if (!selectingLocation) return;
+        const {lat,lng}=event.latlng;
+        document.getElementById("latitude").value = lat.toFixed(6);
+        document.getElementById("longitude").value = lng.toFixed(6);
+        selectingLocation = false;
+    })
     document.getElementById("addPoiForm").addEventListener("submit",async(event)=>{
         event.preventDefault();
         const name = document.getElementById("name").value;
