@@ -1,5 +1,4 @@
-import { addPOI, getAllPOIs } from "./api.js";
-
+import { addPOI, getAllPOIs } from "/scripts/api.js";
 document.addEventListener("DOMContentLoaded",async()=>{
     const map = L.map("map").setView([0, 0], 2); // Default view over US
 
