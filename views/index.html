@@ -4,17 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/style.css">
-    <link rel="icon" href="/images/favicon.ico">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="/public/style/style.css">
+    <link href="/public/styles/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <script defer src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script defer src="/public/scripts/map.js"></script>
+    <script defer src="/scripts/map.js"></script>
 </head>
 <body>
     <h1>VistaPoint</h1>
-    <p>Find the Perfect Place to take photos</p>
-    <div id="map"></div>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="/public/scripts/map.js"></script>
-    <script src="/scripts/map.js"></script>
+    <section class="section">
+        <div class="container">
+            <h1 class="title has-text-centered">VistaPoint</h1>
+            <p class="subitile has-text-centered">Find & share amazing photography spots</p>
+
+            <!--MAP CONTAINER-->
+            <div class="box">
+                <div id="map" style="height: 400px;"></div>
+            </div>
+
+            <!--ADD NEW POI-->
+            <div class="box">
+                <h2 class="title is-4">Add New Location</h2>
+                <!--FORM-->
+                <form id="addPoiForm">
+                    <!--Add Name-->
+                    <div class="field">
+                        <label class="label" for="name">Name</label>
+                        <div class="control">
+                            <input class="input" type="text" id="name" placeholder="Enter Place Name Here" required>
+                        </div>
+                    </div>
+                    <!--Add Description-->
+                    <div class="field">
+                        <label class="label" for="description">Description</label>
+                        <div class="control">
+                            <input class="input" type="text" id="description" placeholder="Enter Description Here">
+                        </div>
+                    </div>
+
+                    <!--Add Name-->
+                    <div class="field">
+                        <label class="label" for="category">Category</label>
+                        <div class="control">
+                            <div class="select">
+                                <select id="category">
+                                    <option value="landscape">Landscape</option>
+                                    <option value="urban">Urban</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label" for="latitude">Latitude</label>
+                                <div class="control">
+                                    <input class="input" type="number" id="latitude" step="any" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label" for="longitude">Longitude</label>
+                                <div class="control">
+                                    <input class="input" type="number" id="longitude" step="any" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-primary is-fullwidth">
+                                <span class="icon">
+                                    <i class="material-icons">add_location</i>
+                                </span>
+                                <span>Add Location</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
