@@ -46,6 +46,23 @@ app.get("/api/pois",async(req,res)=>{
         res.status(500).json({error:"FAILED TO LOAD POIS"});
     }
 });
+app.post("/api/pois",async(req,res)=>{
+    try {
+        const { name, description,lat,lng,category} = req.body;
+        if (!name || lat === undefined || lng === undefined) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+        const newPoi = await sql`
+            INSERT INTO pois (name,description,lat,lng,category)
+            VALUES (${name},${description},${lat},${lng},${category})
+            RETURNING *;
+        `;
+        res.json(newPoi[0]);
+    } catch(err) {
+        res.status(500).json({err:"FAILED RO SAVE POI"});
+
+    }
+});
 if (require.main === module) {
     app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 }
