@@ -1,4 +1,5 @@
 import { addPOI, getAllPOIs } from "/scripts/api.js";
+
 document.addEventListener("DOMContentLoaded",async()=>{
     const map = L.map("map").setView([0, 0], 2); // Default view over US
 
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
 
         const newPoi = {name,description,lat,lng,category};
         try{
-            await addPOI(newPOI);
+            await addPOI(newPoi);
             alert("POI ADDED");
             document.getElementById("addPoiForm").reset();
             loadPOIs();
