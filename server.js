@@ -3,7 +3,7 @@ const path = require("path");
 const { engine } = require("express-handlebars");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Configure Handlebars
 app.engine("html", engine({ extname: ".html", defaultLayout: false }));
@@ -19,8 +19,9 @@ app.get("/", (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
-
 module.exports = app;
+
+// Start server locally
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+}
