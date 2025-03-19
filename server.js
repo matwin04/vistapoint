@@ -74,10 +74,10 @@ app.post("/api/pois", async (req, res) => {
 });
 
 // ✅ Start Server on Available Port
-getPort({ port: process.env.PORT || 3001 }).then((availablePort) => {
-    app.listen(availablePort, () => {
-        console.log(`✅ Server running on http://localhost:${availablePort}`);
-    });
+app.listen(process.env.PORT || 3002, () => {
+    console.log(`✅ Server running on http://localhost:${process.env.PORT || 3002}`);
 });
+
+// 
 
 export default app;
