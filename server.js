@@ -37,7 +37,7 @@ setupDB();
 app.get("/", (req, res) => {
     res.render("index", { title: "VISTAPOINT" });
 });
-
+console.log("BRUH");
 // ✅ FIXED: Get All POIs
 app.get("/api/pois",async(req,res)=>{
     try {
