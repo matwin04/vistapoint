@@ -1,12 +1,47 @@
 import { addPOI, getAllPOIs } from "/scripts/api.js";
 
 document.addEventListener("DOMContentLoaded",async()=>{
-    const map = L.map("map").setView([0, 0], 2); // Default view over US
+    const map = L.map("map").setView([0, 0], 2);
 
-    // Load OpenStreetMap tiles
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; OpenStreetMap contributors'
+    // Load Carto Light Basemap
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        attribution: '&copy; <a href="https://carto.com/">CARTO</a>'
     }).addTo(map);
+
+    // Custom Material Icon for user's location
+    const myIcon = L.icon({
+        iconUrl: "https://fonts.gstatic.com/s/i/materialicons/location_on/v15/24px.svg",
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+    });
+    // Function to locate user
+    function locateUser() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    // Update map view
+                    map.setView([lat, lng], 15);
+
+                    // Add a marker at user's location
+                    L.marker([lat, lng], { icon: myIcon })
+                        .addTo(map)
+                        .bindPopup("<b>You are here!</b>").openPopup();
+                },
+                (error) => {
+                    alert("Geolocation failed: " + error.message);
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    }
+
+    // Call function to locate user
+    locateUser();
     async function loadPOIs() {
         const pois = await getAllPOIs();
         pois.forEach(poi => {
