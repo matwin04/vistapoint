@@ -15,7 +15,7 @@ app.set("view engine", "html");
 app.set("views", path.join(process.cwd(), "views"));
 
 // Serve static files
-app.use(express.static(path.join(process.cwd(), "public")));
+app.use("/public", express.static(path.join(process.cwd(), "public")));
 app.use(express.json());
 
 async function setupDB() {
