@@ -1,14 +1,13 @@
-import { neon } from "@neondatabase/serverless";
+import postgres from "postgres";
 import express from "express";
 import path from "path";
 import { engine } from "express-handlebars";
 import dotenv from "dotenv";
-
 dotenv.config();
+const sql = postgres(process.env.DATABASE_URL, { ssl: "require" });
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const sql = neon(process.env.DATABASE_URL);
 
 // Configure Handlebars
 app.engine("html", engine({ extname: ".html", defaultLayout: false }));
@@ -19,16 +18,20 @@ app.set("views", path.join(process.cwd(), "views"));
 app.use(express.static(path.join(process.cwd(), "public")));
 app.use(express.json());
 
-async function setupDatabase() {
-    try {
-        const schema = await fs.readFile("schema.sql","utf8");
-        await sql(schema);
-        console.log("MOZELTOV DB SETUP COMPLETE");
-    } catch (error) {
-        console.log("DB SETUP FAILED: ",error);
-    }
+async function setupDB() {
+    await sql`
+        CREATE TABLE IF NOT EXISTS pois (
+            id SERIAL PRIMARY KEY,
+            name TEXT NOT NULL,
+            description TEXT,
+            lat DOUBLE PRECISION NOT NULL,
+            lng DOUBLE PRECISION NOT NULL,
+            category TEXT
+        );
+    `;
+    console.log("✅ POIs table ready");
 }
-setupDatabase();
+setupDB();
 // Home Route
 app.get("/", (req, res) => {
     res.render("index", { title: "VISTAPOINT" });
