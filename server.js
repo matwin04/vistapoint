@@ -102,7 +102,7 @@ app.get("/api/pois", async (req, res) => {
         res.status(500).json({ error: "FAILED TO LOAD POIS" });
     }
 });
-pp.get("/api/myspots", async (req, res) => {
+app.get("/api/myspots", async (req, res) => {
     if (!req.session || !req.session.user) return res.status(401).json({ error: "Unauthorized" });
     
     const pois = await sql`SELECT * FROM pois WHERE user_id = ${req.session.user.id}`;
