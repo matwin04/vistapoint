@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -72,7 +77,7 @@
                         <div class="field">
                             <label class="label">Latitude</label>
                             <div class="control is-flex">
-                                <input class="input" type="number" id="latitude" step="any" placeholder="Enter latitude" required>
+                                <input class="input" type="number" id="latitude" placeholder="Enter latitude" required>
                                 <button type="button" class="button is-info ml-2" id="findOnMap">Find on Map</button>
                             </div>
                         </div>
@@ -80,7 +85,7 @@
                         <div class="field">
                             <label class="label">Longitude</label>
                             <div class="control">
-                                <input class="input" type="number" id="longitude" step="any" placeholder="Enter longitude" required>
+                                <input class="input" type="number" id="longitude" placeholder="Enter longitude" required>
                             </div>
                         </div>
 
@@ -92,6 +97,8 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module" src="/scripts/map.js"></script>
 </body>
 </html>

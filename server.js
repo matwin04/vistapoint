@@ -18,8 +18,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url)); // Fix path issu
 app.set("views", path.join(__dirname, "views"));
 
 // ✅ Serve static files from "public"
-app.use(express.static(path.join(__dirname, "public")));
-
+app.use("/styles", express.static(path.join(__dirname, "public/styles")));
+app.use("/scripts", express.static(path.join(__dirname, "public/scripts")));
 // ✅ Configure Handlebars
 app.engine("html", engine({ extname: ".html", defaultLayout: false }));
 app.set("view engine", "html");

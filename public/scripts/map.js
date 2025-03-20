@@ -1,6 +1,7 @@
-import { addPOI, getAllPOIs } from "/scripts/api.js";
+import { getAllPOIs, addPOI } from "/scripts/api.js";
 
-document.addEventListener("DOMContentLoaded",async()=>{
+document.addEventListener("DOMContentLoaded", async () => {
+    // Initialize map
     const map = L.map("map").setView([0, 0], 2);
 
     // Load Carto Light Basemap
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
     });
+
     // Function to locate user
     function locateUser() {
         if ("geolocation" in navigator) {
@@ -42,6 +44,8 @@ document.addEventListener("DOMContentLoaded",async()=>{
 
     // Call function to locate user
     locateUser();
+
+    // ✅ Load POIs from API
     async function loadPOIs() {
         const pois = await getAllPOIs();
         pois.forEach(poi => {
@@ -51,38 +55,53 @@ document.addEventListener("DOMContentLoaded",async()=>{
         });
     }
     loadPOIs();
+
+    // ✅ Allow user to click the map to set coordinates
     let selectingLocation = false;
-    document.getElementById("findOnMap").addEventListener("click",()=>{
-        selectingLocation=true;
-        alert("Click On Map to select a location");
+
+    document.getElementById("findOnMap").addEventListener("click", () => {
+        selectingLocation = true;
+        alert("Click on the map to select a location.");
     });
-    map.on("click",(event)=>{
+
+    map.on("click", (event) => {
         if (!selectingLocation) return;
-        const {lat,lng}=event.latlng;
+
+        const { lat, lng } = event.latlng;
         document.getElementById("latitude").value = lat.toFixed(6);
         document.getElementById("longitude").value = lng.toFixed(6);
-        selectingLocation = false;
-    })
-    document.getElementById("addPoiForm").addEventListener("submit",async(event)=>{
+        selectingLocation = false; // Reset after selection
+    });
+
+    // ✅ Add POI from Form Submission
+    document.getElementById("addPoiForm").addEventListener("submit", async (event) => {
         event.preventDefault();
+
         const name = document.getElementById("name").value;
         const description = document.getElementById("description").value;
         const category = document.getElementById("category").value;
         const lat = parseFloat(document.getElementById("latitude").value);
         const lng = parseFloat(document.getElementById("longitude").value);
-        if (!name||isNaN(lat)||isNaN(lng)) {
-            alert("PLEASE ENTER VALID DETAILS");
+
+        if (!name || isNaN(lat) || isNaN(lng)) {
+            alert("Please enter valid details.");
             return;
         }
 
-        const newPoi = {name,description,lat,lng,category};
-        try{
+        const newPoi = { name, description, lat, lng, category };
+
+        try {
             await addPOI(newPoi);
-            alert("POI ADDED");
+            alert("POI added successfully!");
             document.getElementById("addPoiForm").reset();
-            loadPOIs();
+            loadPOIs(); // Refresh the map
         } catch (error) {
-            console.error("ERR ADDING POI",error);
+            console.error("Error adding POI:", error);
         }
     });
+
+    // ✅ Fix map rendering issues
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 500);
 });
