@@ -8,4 +8,14 @@
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
+}
+
+.leaflet-container {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.leaflet-control-container {
+    z-index: 1000 !important;
 }
