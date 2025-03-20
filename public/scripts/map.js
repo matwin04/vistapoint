@@ -100,8 +100,5 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
-    // ✅ Fix map rendering issues
-    setTimeout(() => {
-        map.invalidateSize();
-    }, 500);
+    
 });
