@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/styles/style.css">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script type="module" src="/scripts/map.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <!-- Navbar -->
@@ -34,7 +33,9 @@
         <div class="columns">
             <!-- Map Section -->
             <div class="column is-two-thirds">
-                <div id="map"></div>
+                <div class="box">
+                    <div id="map"></div>
+                </div>
             </div>
 
             <!-- Sidebar -->
@@ -91,5 +92,8 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="/scripts/map.js"></script>
 </body>
 </html>
