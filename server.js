@@ -73,11 +73,14 @@ app.post("/api/pois", async (req, res) => {
     }
 });
 
-// ✅ Start Server on Available Port
-app.listen(process.env.PORT || 3002, () => {
-    console.log(`✅ Server running on http://localhost:${process.env.PORT || 3002}`);
-});
 
-// 
+if (!process.env.VERCEL && !process.env.NOW_REGION) {
+    const PORT = process.env.PORT || 3002;
+    app.listen(PORT, () => {
+        console.log(`✅ Server running on http://localhost:${PORT}`);
+    });
+}
 
+// ✅ Export the Expres
+// ✅ Export the app for Vercel
 export default app;
