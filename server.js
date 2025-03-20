@@ -58,7 +58,7 @@ setupDB();
 app.get("/", (req, res) => {
     res.render("index", { title: "VISTAPOINT" });
 });
-app.get("/", (req,res)=>{
+app.get("/signup", (req,res)=>{
     res.render("signup",{ title: "Sign Up"});
 })
 // User Sign Up
